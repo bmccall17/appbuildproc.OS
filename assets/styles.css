@@ -529,6 +529,7 @@ h1::after {
 .band,
 .hero {
   position: relative;
+  z-index: 0;
   border-bottom: 2px solid var(--edge);
 }
 
@@ -555,6 +556,30 @@ h1::after {
   background-repeat: no-repeat;
   background-size: contain;
   mix-blend-mode: multiply;
+  translate: 0 calc(var(--p, 0) * var(--pspeed, 0px));
+  will-change: translate;
+}
+
+/* Parallax depth: blots and sprays drift in opposite directions as the
+   section travels through the viewport (driven by --p set in app.js). */
+.hero::before,
+.story-band::before,
+.timeline-band::before,
+.pattern-band::before,
+.pressure-band::before,
+.evidence-band::before,
+.source-band::before {
+  --pspeed: 72px;
+}
+
+.hero::after,
+.story-band::after,
+.timeline-band::after,
+.pattern-band::after,
+.pressure-band::after,
+.evidence-band::after,
+.source-band::after {
+  --pspeed: -48px;
 }
 
 /* Primary splatters: bleed off the left/right edges into the gutters. */
