@@ -1169,19 +1169,80 @@ function renderEditStamps() {
   });
 }
 
+// Base opacity of each section's two splatter decals [::before, ::after],
+// matching the values declared in styles.css.
+const DECAL_BASE = {
+  hero: [0.3, 0.22],
+  "story-band": [0.2, 0.26],
+  "timeline-band": [0.34, 0.36],
+  "pattern-band": [0.34, 0.33],
+  "pressure-band": [0.34, 0.36],
+  "evidence-band": [0.34, 0.33],
+  "source-band": [0.34, 0.36]
+};
+
 function setupParallax() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const sections = Array.from(document.querySelectorAll(".hero, .band"));
   if (!sections.length) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // One decal per section pseudo (slot 0 = ::before, 1 = ::after).
+  const decals = [];
+  Object.keys(DECAL_BASE).forEach((key) => {
+    const el = document.querySelector(`.${key}`);
+    if (!el) return;
+    DECAL_BASE[key].forEach((base, slot) => decals.push({ el, slot, base, effect: "none", amp: 0 }));
+  });
+
+  // Randomly animate ~50% of the background ink images; each animated decal
+  // gets a random effect from vertical drift, horizontal drift, or fade.
+  if (!reduce) {
+    const effects = ["vy", "vx", "fade"];
+    const shuffled = decals.slice().sort(() => Math.random() - 0.5);
+    const animateCount = Math.round(decals.length * 0.5);
+    shuffled.slice(0, animateCount).forEach((d) => {
+      d.effect = effects[Math.floor(Math.random() * effects.length)];
+      const sign = Math.random() < 0.5 ? -1 : 1;
+      if (d.effect === "vy") d.amp = (170 + Math.random() * 210) * sign;
+      else if (d.effect === "vx") d.amp = (150 + Math.random() * 190) * sign;
+    });
+  }
+
+  // Expose the randomized assignment for inspection/debugging.
+  const keyOf = (el) => Object.keys(DECAL_BASE).find((k) => el.classList.contains(k));
+  window.__parallax = decals.map((d) => ({ section: keyOf(d.el), slot: d.slot === 0 ? "before" : "after", effect: d.effect, amp: Math.round(d.amp) }));
+
+  // p is centered at 0 (section centered in viewport), ranging about -1.2..1.2.
+  const setDecal = (d, p) => {
+    let tx = 0, ty = 0, op = d.base;
+    if (d.effect === "vy") ty = p * d.amp;
+    else if (d.effect === "vx") tx = p * d.amp;
+    else if (d.effect === "fade") op = d.base * Math.max(0.06, 1 - Math.abs(p) * 1.15);
+    const pre = d.slot === 0 ? "--b-" : "--a-";
+    d.el.style.setProperty(`${pre}tx`, `${tx.toFixed(1)}px`);
+    d.el.style.setProperty(`${pre}ty`, `${ty.toFixed(1)}px`);
+    d.el.style.setProperty(`${pre}o`, op.toFixed(3));
+  };
+
+  if (reduce) {
+    decals.forEach((d) => setDecal(d, 0.5));
+    return;
+  }
+
   let ticking = false;
   const update = () => {
     const vh = window.innerHeight || document.documentElement.clientHeight;
+    const pmap = new Map();
     sections.forEach((section) => {
       const rect = section.getBoundingClientRect();
-      if (rect.bottom < -vh || rect.top > vh * 2) return;
       const raw = (rect.top + rect.height / 2 - vh / 2) / vh;
       const p = Math.max(-1.2, Math.min(1.2, raw));
       section.style.setProperty("--p", p.toFixed(3));
+      pmap.set(section, p);
+    });
+    decals.forEach((d) => {
+      const p = pmap.get(d.el);
+      if (p !== undefined) setDecal(d, p);
     });
     ticking = false;
   };

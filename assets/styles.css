@@ -564,12 +564,11 @@ h1::after {
   background-repeat: no-repeat;
   background-size: contain;
   mix-blend-mode: multiply;
-  translate: 0 calc(var(--p, 0) * var(--pspeed, 0px));
-  will-change: translate;
+  will-change: translate, opacity;
 }
 
-/* Parallax depth: blots and sprays drift in opposite directions as the
-   section travels through the viewport (driven by --p set in app.js). */
+/* Per-decal parallax (drift x/y + fade) is randomized in app.js, which sets
+   --b-* on ::before and --a-* on ::after of each section. See setupParallax(). */
 .hero::before,
 .story-band::before,
 .timeline-band::before,
@@ -577,7 +576,7 @@ h1::after {
 .pressure-band::before,
 .evidence-band::before,
 .source-band::before {
-  --pspeed: 72px;
+  translate: var(--b-tx, 0px) var(--b-ty, 0px);
 }
 
 .hero::after,
@@ -587,7 +586,7 @@ h1::after {
 .pressure-band::after,
 .evidence-band::after,
 .source-band::after {
-  --pspeed: -48px;
+  translate: var(--a-tx, 0px) var(--a-ty, 0px);
 }
 
 /* Primary splatters: bleed off the left/right edges into the gutters. */
@@ -1875,4 +1874,27 @@ h1::after {
   height: 17rem;
   opacity: 0.36;
   transform: rotate(8deg) scaleX(-1);
+}
+
+/* Parallax fade control: JS sets --b-o / --a-o per decal (base opacity, or a
+   reduced value for fade-in/out). Placed last so it overrides per-section
+   opacity. Fallbacks only apply before app.js runs. */
+.hero::before,
+.story-band::before,
+.timeline-band::before,
+.pattern-band::before,
+.pressure-band::before,
+.evidence-band::before,
+.source-band::before {
+  opacity: var(--b-o, 0.3);
+}
+
+.hero::after,
+.story-band::after,
+.timeline-band::after,
+.pattern-band::after,
+.pressure-band::after,
+.evidence-band::after,
+.source-band::after {
+  opacity: var(--a-o, 0.3);
 }
