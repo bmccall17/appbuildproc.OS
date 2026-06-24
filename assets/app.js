@@ -1155,6 +1155,20 @@ function bindSources() {
   }
 }
 
+function renderEditStamps() {
+  const stamps = document.querySelectorAll("[data-edited]");
+  if (!stamps.length) return;
+  const raw = document.lastModified ? new Date(document.lastModified) : null;
+  const d = raw && !Number.isNaN(raw.getTime()) && raw.getFullYear() > 2000 ? raw : new Date();
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const pad = (n) => String(n).padStart(2, "0");
+  const label = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  stamps.forEach((node) => {
+    node.innerHTML = `<span class="stamp-k">Last edited</span> ${escapeHtml(label)}`;
+    node.setAttribute("title", `Last edited ${label}`);
+  });
+}
+
 function setupParallax() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const sections = Array.from(document.querySelectorAll(".hero, .band"));
@@ -1200,6 +1214,7 @@ function init() {
   renderCoverageTable();
   renderProjects();
   bindSources();
+  renderEditStamps();
   setupParallax();
 
   const shell = document.querySelector(".timeline-shell");

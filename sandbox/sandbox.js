@@ -1,8 +1,14 @@
 /* Ink + Parallax Sandbox for appbuildproc.OS */
 
 const IMAGES = [
-  { id: "blots", label: "Blots / splatter", src: "../stylization/inkmessyblots2.png" },
-  { id: "spray", label: "Spray / markings", src: "../stylization/inkmarkings.png" },
+  { id: "gblot1", label: "Splatter A", src: "../stylization/gen-blots-1.svg" },
+  { id: "gblot2", label: "Splatter B", src: "../stylization/gen-blots-2.svg" },
+  { id: "gblot3", label: "Splatter C", src: "../stylization/gen-blots-3.svg" },
+  { id: "gblot4", label: "Splatter D", src: "../stylization/gen-blots-4.svg" },
+  { id: "gstk1", label: "Strokes A", src: "../stylization/gen-strokes-1.svg" },
+  { id: "gstk2", label: "Strokes B", src: "../stylization/gen-strokes-2.svg" },
+  { id: "gstk3", label: "Strokes C", src: "../stylization/gen-strokes-3.svg" },
+  { id: "blots", label: "Blots (photo)", src: "../stylization/inkmessyblots2.png" },
   { id: "strokes", label: "Dry brush", src: "../stylization/inkstrokes.jpg" },
   { id: "lines", label: "Swirls / lines", src: "../stylization/inklines.png" },
   { id: "frames", label: "Grunge frames", src: "../stylization/inkframes.png" }
@@ -37,7 +43,7 @@ const DISSOLVE_MASK =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.42' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 9 -3.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23d)'/%3E%3C/svg%3E\")";
 
 const DEFAULTS = {
-  imageId: "blots", blend: "multiply", opacity: 0.45, scale: 1, rotate: 0,
+  imageId: "gblot1", blend: "multiply", opacity: 0.45, scale: 1, rotate: 0,
   x: 0, y: 0, hue: 0, contrast: 100, brightness: 100, rough: false,
   pmode: "boat", speed: 600, depth: 0.5, visible: true
 };
@@ -49,10 +55,10 @@ function makeLayer(overrides = {}) {
 }
 
 let layers = [
-  makeLayer({ name: "Backdrop blot", imageId: "blots", opacity: 0.32, scale: 2.4, x: -240, y: -40, rotate: -150, pmode: "boat", speed: 320, depth: 0.12 }),
-  makeLayer({ name: "Mid spray", imageId: "spray", opacity: 0.4, scale: 1.4, x: 320, y: -160, rotate: 8, pmode: "boat", speed: 620, depth: 0.45 }),
+  makeLayer({ name: "Backdrop blot", imageId: "gblot1", opacity: 0.32, scale: 2.4, x: -240, y: -40, rotate: -150, pmode: "boat", speed: 320, depth: 0.12 }),
+  makeLayer({ name: "Mid strokes", imageId: "gstk1", opacity: 0.4, scale: 1.4, x: 320, y: -160, rotate: 8, pmode: "boat", speed: 620, depth: 0.45 }),
   makeLayer({ name: "Swirl", imageId: "lines", blend: "multiply", opacity: 0.3, scale: 1.5, x: -40, y: 120, rotate: 0, pmode: "vy", speed: 260, depth: 0.5 }),
-  makeLayer({ name: "Foreground splatter", imageId: "blots", opacity: 0.5, scale: 1.05, x: -360, y: 250, rotate: 40, pmode: "boat", speed: 980, depth: 0.85 })
+  makeLayer({ name: "Foreground splatter", imageId: "gblot4", opacity: 0.5, scale: 1.05, x: -360, y: 250, rotate: 40, pmode: "boat", speed: 980, depth: 0.85 })
 ];
 let selectedId = layers[0].id;
 let progress = 0;
