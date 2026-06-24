@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ink + Parallax Sandbox - appbuildproc.OS</title>
+    <meta name="description" content="A design sandbox for the appbuildproc.OS ink aesthetic: tune splatters, drips, and blots, their blend modes and transforms, and scroll parallax modes.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="data:,">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="sandbox.css?v=1">
+  </head>
+  <body>
+    <svg class="ink-defs" aria-hidden="true" focusable="false" width="0" height="0">
+      <defs>
+        <filter id="inkRough" x="-8%" y="-30%" width="116%" height="160%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.014 0.02" numOctaves="3" seed="7" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="inkBleed" x="-20%" y="-60%" width="140%" height="220%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9 0.06" numOctaves="2" seed="11" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- Scroll track gives the sticky stage room to drive scroll progress. -->
+    <div class="track" id="track">
+      <div class="stage" id="stage" data-bg="paper">
+        <div class="scene" id="scene" aria-label="Ink composition stage"></div>
+        <div class="stage-overlay" aria-hidden="true">
+          <span class="stage-wordmark">appbuildproc<span class="dot">.</span>OS</span>
+          <span class="stage-sub">ink + parallax sandbox</span>
+        </div>
+        <div class="scroll-hint" id="scrollHint" aria-hidden="true">scroll to drive parallax</div>
+      </div>
+    </div>
+
+    <!-- HUD -->
+    <aside class="hud" id="hud" aria-label="Sandbox controls">
+      <header class="hud-head">
+        <div class="hud-title">INK <span>+</span> PARALLAX</div>
+        <div class="hud-head-actions">
+          <button type="button" class="btn" id="addLayer" title="Add a new ink layer">+ layer</button>
+          <button type="button" class="btn ghost" id="hideHud" title="Hide HUD (H)">hide</button>
+        </div>
+      </header>
+
+      <div class="hud-body" id="hudBody">
+        <section class="hud-group">
+          <div class="hud-group-label">Layers</div>
+          <ul class="layer-list" id="layerList"></ul>
+          <label class="check"><input type="checkbox" id="applyAll"> apply changes to <strong>all layers</strong></label>
+        </section>
+
+        <section class="hud-group">
+          <div class="hud-group-label">Image</div>
+          <div class="thumb-row" id="thumbRow"></div>
+        </section>
+
+        <section class="hud-group">
+          <div class="hud-group-label">Blend &amp; ink</div>
+          <label class="field">
+            <span>Blend mode</span>
+            <select id="blend" data-prop="blend"></select>
+          </label>
+          <div class="dial" data-dial="opacity"><label>Opacity <output></output></label><input type="range" data-prop="opacity" min="0" max="1" step="0.01"></div>
+          <div class="dial" data-dial="hue"><label>Hue rotate <output></output></label><input type="range" data-prop="hue" min="0" max="360" step="1"></div>
+          <div class="dial" data-dial="contrast"><label>Contrast <output></output></label><input type="range" data-prop="contrast" min="0" max="300" step="1"></div>
+          <div class="dial" data-dial="brightness"><label>Brightness <output></output></label><input type="range" data-prop="brightness" min="0" max="300" step="1"></div>
+          <label class="check"><input type="checkbox" data-prop="rough" id="rough"> rough ink edges (SVG filter)</label>
+        </section>
+
+        <section class="hud-group">
+          <div class="hud-group-label">Transform</div>
+          <div class="dial" data-dial="scale"><label>Scale <output></output></label><input type="range" data-prop="scale" min="0.1" max="3.5" step="0.01"></div>
+          <div class="dial" data-dial="rotate"><label>Rotate <output></output></label><input type="range" data-prop="rotate" min="-180" max="180" step="1"></div>
+          <div class="dial" data-dial="x"><label>Position X <output></output></label><input type="range" data-prop="x" min="-1200" max="1200" step="2"></div>
+          <div class="dial" data-dial="y"><label>Position Y <output></output></label><input type="range" data-prop="y" min="-1200" max="1200" step="2"></div>
+        </section>
+
+        <section class="hud-group">
+          <div class="hud-group-label">Parallax</div>
+          <label class="field">
+            <span>Mode</span>
+            <select id="pmode" data-prop="pmode"></select>
+          </label>
+          <div class="dial" data-dial="speed"><label>Speed / amount <output></output></label><input type="range" data-prop="speed" min="0" max="1800" step="10"></div>
+          <div class="dial" data-dial="depth"><label>Depth (cinematic) <output></output></label><input type="range" data-prop="depth" min="0" max="1" step="0.05"></div>
+          <p class="hint" id="pmodeHint"></p>
+        </section>
+
+        <section class="hud-group">
+          <div class="hud-group-label">Scene</div>
+          <label class="field">
+            <span>Background</span>
+            <select id="stageBg"></select>
+          </label>
+          <div class="dial" data-dial="track"><label>Scroll length <output></output></label><input type="range" id="trackLen" min="150" max="800" step="10"></div>
+          <div class="row">
+            <button type="button" class="btn ghost" id="resetLayer">reset layer</button>
+            <button type="button" class="btn ghost" id="resetAll">reset all</button>
+          </div>
+        </section>
+
+        <section class="hud-group">
+          <div class="hud-group-label">Export</div>
+          <div class="row">
+            <button type="button" class="btn" id="copyCss">copy layer CSS</button>
+            <button type="button" class="btn ghost" id="copyAll">copy all</button>
+          </div>
+          <textarea id="cssOut" class="css-out" spellcheck="false" readonly></textarea>
+        </section>
+
+        <section class="hud-group hud-foot">
+          <div class="progress"><span id="progressBar"></span></div>
+          <div class="foot-meta"><span id="progressVal">t 0.00</span><a href="../index.html">back to exhibit</a></div>
+        </section>
+      </div>
+    </aside>
+
+    <button type="button" class="hud-show" id="showHud" hidden title="Show HUD (H)">HUD</button>
+
+    <script src="sandbox.js?v=1"></script>
+  </body>
+</html>

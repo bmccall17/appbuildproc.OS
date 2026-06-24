@@ -327,6 +327,8 @@ h1::after {
   mix-blend-mode: multiply;
   opacity: 0.55;
   transform: translateX(-50%) rotate(-3deg);
+  translate: 0 calc(var(--p, 0) * 20px);
+  will-change: translate;
 }
 
 .loop-blot {
@@ -335,6 +337,8 @@ h1::after {
   background-repeat: no-repeat;
   background-size: contain;
   mix-blend-mode: multiply;
+  translate: 0 calc(var(--p, 0) * var(--pspeed, 0px));
+  will-change: translate;
 }
 
 .loop-blot--1 {
@@ -344,6 +348,7 @@ h1::after {
   height: 14rem;
   opacity: 0.4;
   transform: rotate(18deg);
+  --pspeed: 46px;
 }
 
 .loop-blot--2 {
@@ -353,6 +358,7 @@ h1::after {
   height: 13rem;
   opacity: 0.36;
   transform: rotate(-122deg);
+  --pspeed: -38px;
 }
 
 .loop-blot--3 {
@@ -362,6 +368,7 @@ h1::after {
   height: 9rem;
   opacity: 0.3;
   transform: rotate(70deg);
+  --pspeed: 30px;
 }
 
 .loop-drip {

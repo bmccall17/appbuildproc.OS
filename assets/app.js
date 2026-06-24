@@ -1155,6 +1155,33 @@ function bindSources() {
   }
 }
 
+function setupParallax() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const sections = Array.from(document.querySelectorAll(".hero, .band"));
+  if (!sections.length) return;
+  let ticking = false;
+  const update = () => {
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.bottom < -vh || rect.top > vh * 2) return;
+      const raw = (rect.top + rect.height / 2 - vh / 2) / vh;
+      const p = Math.max(-1.2, Math.min(1.2, raw));
+      section.style.setProperty("--p", p.toFixed(3));
+    });
+    ticking = false;
+  };
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  update();
+}
+
 function bindDrawer() {
   document.getElementById("drawerClose").addEventListener("click", closeDrawer);
   document.getElementById("drawerBackdrop").addEventListener("click", closeDrawer);
@@ -1173,6 +1200,7 @@ function init() {
   renderCoverageTable();
   renderProjects();
   bindSources();
+  setupParallax();
 
   const shell = document.querySelector(".timeline-shell");
   if (shell) shell.addEventListener("scroll", hideTooltip, { passive: true });
