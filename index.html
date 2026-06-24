@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>appbuildproc.OS Research Exhibit</title>
+    <meta
+      name="description"
+      content="An interactive visual presentation of the appbuildproc.OS research findings, timeline, process model, patterns, and evidence trail."
+    >
+    <link rel="icon" href="data:,">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Special+Elite&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="assets/styles.css?v=20260624-ink4">
+  </head>
+  <body>
+    <svg class="ink-defs" aria-hidden="true" focusable="false" width="0" height="0">
+      <defs>
+        <filter id="inkRough" x="-8%" y="-30%" width="116%" height="160%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.014 0.02" numOctaves="3" seed="7" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="inkRoughStrong" x="-12%" y="-40%" width="124%" height="180%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.01 0.035" numOctaves="3" seed="4" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="inkBleed" x="-20%" y="-60%" width="140%" height="220%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9 0.06" numOctaves="2" seed="11" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
+
+    <a class="skip-link" href="#story">Skip to story</a>
+
+    <header class="topbar" aria-label="Primary">
+      <a class="brand" href="#overview" aria-label="appbuildproc.OS overview">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">appbuildproc<span class="brand-dot">.</span>OS</span>
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#story">Story</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#patterns">Patterns</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#sources">Sources</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="overview" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Evidence-backed process model</p>
+          <h1 id="hero-title">building ideas operating system.</h1>
+          <p class="hero-thesis">
+            Build fast where the idea is uncertain. Become rigorous where the system must tell the truth.
+          </p>
+          <div class="metric-row" aria-label="Research scope">
+            <div>
+              <strong>10</strong>
+              <span>projects</span>
+            </div>
+            <div>
+              <strong>9</strong>
+              <span>states</span>
+            </div>
+            <div>
+              <strong>20</strong>
+              <span>story slides</span>
+            </div>
+            <div>
+              <strong>High</strong>
+              <span>traceability</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="loop-stage" aria-label="Core reality-seeking loop">
+          <div class="loop-flow" aria-hidden="true">
+            <svg class="loop-arrow" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <marker id="loopArrowHead" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                  <path d="M0,0 L6,3 L0,6 Z" fill="currentColor" />
+                </marker>
+              </defs>
+              <path
+                class="loop-arrow-path"
+                d="M140,30.7 A80,80 0 1 1 60,30.7"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.4"
+                stroke-linecap="round"
+                marker-end="url(#loopArrowHead)"
+              />
+            </svg>
+            <span class="loop-swirl"></span>
+            <span class="loop-blot loop-blot--1"></span>
+            <span class="loop-blot loop-blot--2"></span>
+            <span class="loop-blot loop-blot--3"></span>
+            <span class="loop-drip loop-drip--1"></span>
+            <span class="loop-drip loop-drip--2"></span>
+          </div>
+          <div class="loop-core">
+            <span>Reality-seeking loop</span>
+            <strong>Truth pressure decides the next artifact.</strong>
+          </div>
+          <ol class="loop-steps">
+            <li style="--accent: var(--seed);">
+              <span>01</span>
+              <strong>Make executable</strong>
+              <small>Smallest route, game loop, scanner, or workflow.</small>
+            </li>
+            <li style="--accent: var(--runtime);">
+              <span>02</span>
+              <strong>Expose to reality</strong>
+              <small>Runtime, callback, multiplayer room, or live data.</small>
+            </li>
+            <li style="--accent: var(--truth);">
+              <span>03</span>
+              <strong>Find the break</strong>
+              <small>State, identity, visibility, publicness, or risk.</small>
+            </li>
+            <li style="--accent: var(--visibility);">
+              <span>04</span>
+              <strong>Build the carrier</strong>
+              <small>Admin, source of truth, test, runbook, or public object.</small>
+            </li>
+            <li style="--accent: var(--guard);">
+              <span>05</span>
+              <strong>Record the decision</strong>
+              <small>ADR, changelog, ship note, checklist, or workflow.</small>
+            </li>
+            <li style="--accent: var(--reflect);">
+              <span>06</span>
+              <strong>Transfer the lesson</strong>
+              <small>Reusable context for the next human or agent.</small>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="band story-band" id="story" aria-labelledby="story-title">
+        <div class="section-heading">
+          <p class="eyebrow">Process states</p>
+          <h2 id="story-title">The model is a loop, not a waterfall.</h2>
+          <p>
+            Projects can occupy multiple states at once, skip states that do not match their pressure,
+            or revisit a state when new evidence appears.
+          </p>
+        </div>
+        <div class="state-rail" id="stateRail" aria-live="polite"></div>
+      </section>
+
+      <section class="band timeline-band" id="timeline" aria-labelledby="timeline-title">
+        <div class="section-heading">
+          <p class="eyebrow">Timeline and corpus</p>
+          <h2 id="timeline-title">A shared process across different project types.</h2>
+          <p>
+            The same operating pattern appears in public apps, local tools, games, publication systems,
+            and meta-process products. The timing changes with project pressure.
+          </p>
+        </div>
+
+        <div class="timeline-tools" aria-label="Timeline filters">
+          <div class="filter-group" id="timelineFilters"></div>
+        </div>
+
+        <div class="timeline-shell">
+          <div class="timeline-scale" aria-hidden="true">
+            <span>Dec 2025</span>
+            <span>Jan</span>
+            <span>Feb</span>
+            <span>Mar</span>
+            <span>Apr</span>
+            <span>May</span>
+            <span>Jun 2026</span>
+          </div>
+          <div class="timeline-grid" id="projectTimeline" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="band pattern-band" id="patterns" aria-labelledby="patterns-title">
+        <div class="section-heading">
+          <p class="eyebrow">Pattern strength</p>
+          <h2 id="patterns-title">The strongest findings are pressure-driven.</h2>
+          <p>
+            Frequency is not treated as a universal checklist. It shows which process moves repeat
+            and where caveats matter.
+          </p>
+        </div>
+
+        <div class="pattern-layout">
+          <div class="pattern-bars" id="patternBars"></div>
+          <div class="chaos-panel" aria-labelledby="chaos-title">
+            <h3 id="chaos-title">Productive chaos vs. avoidable rework</h3>
+            <div class="chaos-columns">
+              <div>
+                <h4>Productive</h4>
+                <ul>
+                  <li>Fast exposure to reality.</li>
+                  <li>Creative pivots with reversibility.</li>
+                  <li>Instrumentation before full content.</li>
+                  <li>Public reflection as build fuel.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Avoidable</h4>
+                <ul>
+                  <li>Duplicate sources of truth.</li>
+                  <li>Late guardrails after known risk.</li>
+                  <li>Stale human-facing docs.</li>
+                  <li>Dirty working trees as hidden history.</li>
+                </ul>
+              </div>
+            </div>
+            <a class="text-link" href="research/chaos_and_rework.md">Open chaos and rework analysis</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="band pressure-band" id="process" aria-labelledby="process-title">
+        <div class="section-heading">
+          <p class="eyebrow">Pressure to artifact</p>
+          <h2 id="process-title">Structure appears when a current artifact stops carrying truth.</h2>
+          <p>
+            The practical question is not which phase comes next. It is which pressure is real now,
+            and what smallest artifact can carry it.
+          </p>
+        </div>
+        <div class="pressure-grid" id="pressureGrid"></div>
+      </section>
+
+      <section class="band evidence-band" id="evidence" aria-labelledby="evidence-title">
+        <div class="section-heading">
+          <p class="eyebrow">Evidence map</p>
+          <h2 id="evidence-title">Every claim points back to the research package.</h2>
+          <p>
+            The evidence matrix shows where each state is strongly supported, partial, absent,
+            or intentionally not applicable.
+          </p>
+        </div>
+
+        <div class="matrix-wrap" tabindex="0" aria-label="Project coverage matrix">
+          <table class="coverage-table" id="coverageTable"></table>
+        </div>
+
+        <div class="project-browser" id="projectBrowser" aria-label="Project drill down"></div>
+      </section>
+
+      <section class="band source-band" id="sources" aria-labelledby="sources-title">
+        <div class="section-heading">
+          <p class="eyebrow">Research trail</p>
+          <h2 id="sources-title">The exhibit is an entry point into the full package.</h2>
+          <p>
+            Summary files give the fast read. Per-project dossiers, timelines, and evidence indexes
+            provide the rich specifics.
+          </p>
+        </div>
+
+        <div class="source-grid" id="sourceGrid">
+          <a href="research/executive_summary.md" data-source="exec">
+            <strong>Executive summary</strong>
+            <span>Fast read of the thesis, loop, states, caveats, and usage paths.</span>
+          </a>
+          <a href="research/brett_build_os.md" data-source="human">
+            <strong>Human operating model</strong>
+            <span>Nine states, entry signals, artifacts, risks, and switch signals.</span>
+          </a>
+          <a href="research/brett_build_os_agent.md" data-source="agent">
+            <strong>Agent specification</strong>
+            <span>Evidence inspection order, classifiers, restraint rules, and output template.</span>
+          </a>
+          <a href="research/evidence_traceability_matrix.md" data-source="matrix">
+            <strong>Traceability matrix</strong>
+            <span>State-level claims, supporting evidence, counterexamples, and audit paths.</span>
+          </a>
+          <a href="research/transition_map.md" data-source="transition">
+            <strong>Transition map</strong>
+            <span>Triggers that move projects from one truth carrier to the next.</span>
+          </a>
+          <a href="research/cross_project_patterns.md" data-source="patterns">
+            <strong>Cross-project patterns</strong>
+            <span>Frequency, confidence, evidence, and recurring technical choices.</span>
+          </a>
+          <a href="research/variation_and_exceptions.md" data-source="variations">
+            <strong>Variations and exceptions</strong>
+            <span>Why local tools, games, meta-products, and publication surfaces differ.</span>
+          </a>
+          <a href="research/application_checklist.md" data-source="checklist">
+            <strong>Application checklist</strong>
+            <span>A practical routine for classifying a new or existing repository.</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <aside class="drawer" id="detailDrawer" aria-hidden="true" aria-labelledby="drawerTitle">
+      <div class="drawer-head">
+        <p class="eyebrow" id="drawerKicker">Detail</p>
+        <button class="drawer-close" type="button" id="drawerClose" aria-label="Close detail panel">Close</button>
+      </div>
+      <div class="drawer-body" id="drawerContent"></div>
+    </aside>
+    <div class="backdrop" id="drawerBackdrop" hidden></div>
+
+    <script src="assets/app.js?v=20260624-ink4"></script>
+  </body>
+</html>

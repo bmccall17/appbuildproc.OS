@@ -1,0 +1,21 @@
+# OS / filesystem junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Windows "mark of the web" alternate-data-stream artifacts (common in WSL)
+*:Zone.Identifier
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs / temp
+*.log
+*.tmp
+
+# Environment / secrets
+.env
+.env.*
